@@ -1,11 +1,14 @@
 package rpg.entity.creature;
-
+//////////////////////////////////
+// Minh sua , luot xuong cuoi 
+//////////////////////////////////
 import java.awt.Rectangle;
 
 import rpg.game.Game;
 import rpg.game.GameStart;
 import rpg.api.Animation;
 import rpg.entity.Entity;
+import rpg.entity.creature.npc.Attack;
 
 public abstract class Creature extends Entity {
     protected int MAXHP;
@@ -15,6 +18,7 @@ public abstract class Creature extends Entity {
     protected float deltaX, deltaY;
     protected Rectangle bounds;
     protected boolean allowAttack, dead;
+    protected Attack attackOther;
     // protected Attack attack;
     protected Animation move_up, move_down, move_left, move_right;
 
@@ -22,7 +26,9 @@ public abstract class Creature extends Entity {
         super(game, x, y, width, height);
         this.deltaX = 0;
         this.deltaY = 0;
+        dead = false;
         bounds = new Rectangle(0, 0, width, height);
+        attackOther = new Attack();
     }
 
     public void init() {
@@ -129,4 +135,11 @@ public abstract class Creature extends Entity {
         else
             return false;
     }
+    /////////////////////////Minh sua /////////////////////////
+    public void setRectForAttack(int range)
+    {
+        rectForAttack.setBounds((int) (x + bounds.x - range), (int) (y + bounds.y - range), bounds.width + range * 2,
+		bounds.height + range * 2);
+    }
+
 }

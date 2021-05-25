@@ -44,8 +44,10 @@ public class Monster extends NPC {
     public void update() {
         die();
         monsterMove.update();
-        update_move();
         move();
+        attackOther();
+        playerAttack();
+
     }
 
     public void render(Graphics g) {
@@ -59,20 +61,36 @@ public class Monster extends NPC {
     }
 
     @Override
-    public void update_move() {
-        if (System.currentTimeMillis() - time_move > 1000 || !outOfRange(this.x, this.y)) {
-            time_move = System.currentTimeMillis();
-            // rand = Math.random();
-            if (ThreadLocalRandom.current().nextInt(1, 100) < 50) {
-                setMoveX();
-            } else {
-                setMoveY();
-            }
-
-            // if(x > 0 && x < GameStart.MAX_WIDTH && y > 0 && y < GameStart.MAX_HEIGHT) {
-            // this.x = 0;
-            // this.y = 0;
-        }
+    public void attackOther() {
+        player.setRectForAttack(0);
+        this.setRectForAttack(0);
+        attackOther.attack(player, this, 10);  
     }
 
+    @Override
+    public void playerAttack() {
+        player.setRectForAttack(10);
+        this.setRectForAttack(0);
+        if(player.isAttack())
+        attackOther.attack(this, player, 10);
+        
+    }
+
+    // @Override
+    // public void update_move() {
+    // if (System.currentTimeMillis() - time_move > 1000 || !outOfRange(this.x,
+    // this.y)) {
+    // time_move = System.currentTimeMillis();
+    // // rand = Math.random();
+    // if (ThreadLocalRandom.current().nextInt(1, 100) < 50) {
+    // moveX();
+    // } else {
+    // moveY();
+    // }
+
+    // // if(x > 0 && x < GameStart.MAX_WIDTH && y > 0 && y < GameStart.MAX_HEIGHT)
+    // {
+    // // this.x = 0;
+    // // this.y = 0;
+    // }
 }

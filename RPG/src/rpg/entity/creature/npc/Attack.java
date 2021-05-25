@@ -1,12 +1,18 @@
-// package rpg.entity.creature.npc;
+package rpg.entity.creature.npc;
 
-// import javax.swing.text.html.parser.Entity;
 
-// import rpg.entity.creature.Creature;
 
-// public class Attack {
-//     public boolean attack(Creature target, Entity attackObject)
-//     {
-//         if()
-//     }
-// }
+import rpg.entity.Entity;
+import rpg.entity.creature.Creature;
+
+public class Attack {
+    public boolean attack(Creature target, Entity attackObject, int damage)
+    {
+        if(target.getRectForAttack().intersects(attackObject.getRectForAttack()))
+        {
+            target.hurt(damage);
+            return true;
+        }
+        return false;
+    }
+}
