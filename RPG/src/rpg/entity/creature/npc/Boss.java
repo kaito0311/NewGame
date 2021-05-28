@@ -18,10 +18,10 @@ public class Boss extends NPC {
 
 	public Boss(Game game, Player player, float x, float y, int width, int height) {
 		super(game, player, x, y, width, height);
-		move_up = new Animation(Texture.boss_up, 100);
-		move_down = new Animation(Texture.boss_down, 100);
-		move_left = new Animation(Texture.boss_left, 100);
-		move_right = new Animation(Texture.boss_right, 100);
+		move_up = new Animation(Texture.boss_up, 200);
+		move_down = new Animation(Texture.boss_down, 200);
+		move_left = new Animation(Texture.boss_left, 200);
+		move_right = new Animation(Texture.boss_right, 200);
 
 		center_X = 600;
 		center_Y = 400;
@@ -38,8 +38,7 @@ public class Boss extends NPC {
 		move_right.update();
 		move_up.update();
 		move();
-
-
+		
 	}
 
 	public void move() {
@@ -160,7 +159,6 @@ public class Boss extends NPC {
 
 	@Override
 	public void update() {
-
 		state_update();
 		fire.update();
 		playerAttack();

@@ -1,4 +1,4 @@
-package rpg;
+package rpg.entity.creature.npc;
 
 
 

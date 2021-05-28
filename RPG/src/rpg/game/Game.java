@@ -1,6 +1,8 @@
 package rpg.game;
 
 import java.awt.Rectangle;
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 import rpg.api.KeyAction;
@@ -31,7 +33,10 @@ public class Game implements Runnable {
 		this.height = height;
 		this.title = title;
 		key = new KeyAction();
-
+	}
+	
+	public  GameState getGameState() {
+		return this.gameState;
 	}
 
 	public synchronized void start() {
@@ -66,14 +71,73 @@ public class Game implements Runnable {
 	private void render() {
 		bs = display.getCanvas().getBufferStrategy();
 		if (bs == null) {
-			display.getCanvas().createBufferStrategy(3);
+			display.getCanvas().createBufferStrategy(2);
 			return;
 		}
-
 		g = bs.getDrawGraphics();
-		map = worldMap.getMap(currentMap);
-		port = map.getPort(); // getPort = getRectangle
+		
+		if(gameState.getPlayer().getDead()){
+			display.renderEndGame(g);
+			if(key.space == true) {
+				new GameStart();
+				music.setRunning(false);
+				display.getFrame().dispose();
+				this.stop();
+			}
+		}else {
+			map = worldMap.getMap(currentMap);
+			port = map.getPort();
+			changeMap();
+			map.render(g);
+			gameState.render(g);
+		}
+		
+		bs.show();
+		g.dispose();
+	}
 
+	public void run() {
+		init();
+		int fps = 30;
+		double timePerTick = 1000000000.0 / fps;
+		double delta = 0;
+		long now;
+		long lastTime = System.nanoTime();
+		while (running) {
+			now = System.nanoTime();
+			delta += (now - lastTime) / timePerTick;
+			lastTime = now;
+			if (delta >= 1) {
+				render();
+				update();
+				delta--;
+			}
+
+		}
+		stop();
+	}
+
+	private void init() {
+		worldMap = new WorldMap();
+		map = worldMap.getMap(2);
+		currentMap = 2;
+		display = new Display(title, width, height);
+		display.getFrame().addKeyListener(key);
+		gameState = new GameState(this);
+	}
+
+	public KeyAction getKeyaction() {
+		return key;
+	}
+//	public Graphics getGraphic() {
+//		return this.g;
+//	}
+
+	public Map getCurrentMap() {
+		return map;
+	}
+
+	public void changeMap(){
 		if (currentMap == 0) {
 			if (gameState.getPlayer().getCollisionBounds(0).intersects(port[0])) {
 				currentMap = 2;
@@ -98,49 +162,6 @@ public class Game implements Runnable {
 				gameState.getPlayer().setY(270);
 			}
 		}
-		
-		map.render(g);
-        gameState.render(g);
-		bs.show();
-		g.dispose();
-	}
-
-	public void run() {
-		init();
-		int fps = 35;
-		double timePerTick = 1000000000.0 / fps;
-		double delta = 0;
-		long now;
-		long lastTime = System.nanoTime();
-		while (running) {
-			now = System.nanoTime();
-			delta += (now - lastTime) / timePerTick;
-			lastTime = now;
-			if (delta >= 1) {
-				update();
-				render();
-				delta--;
-			}
-
-		}
-		stop();
-	}
-
-	private void init() {
-		worldMap = new WorldMap();
-		map = worldMap.getMap(2);
-		currentMap = 2;
-		display = new Display(title, width, height);
-		display.getFrame().addKeyListener(key);
-		gameState = new GameState(this);
-	}
-
-	public KeyAction getKeyaction() {
-		return key;
-	}
-
-	public Map getCurrentMap() {
-		return map;
 	}
 
 }

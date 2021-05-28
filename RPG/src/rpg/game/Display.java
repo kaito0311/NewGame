@@ -1,8 +1,11 @@
 package rpg.game;
 
 import java.awt.Canvas;
+import java.awt.Color;
 import java.awt.Dimension;
 import javax.swing.JFrame;
+import java.awt.Graphics;
+import java.awt.Font;
 
 public class Display {
 	private JFrame frame;
@@ -33,6 +36,15 @@ public class Display {
 		canvas.setMinimumSize(new Dimension(width, height));
 		frame.add(canvas);
 		frame.pack();
+	}
+
+	public void renderEndGame(Graphics g){
+		g.setFont(new Font("Comic Sans MS", Font.BOLD, 60));
+    	g.setColor(Color.white);
+    	g.drawString("Game Over!", 240, 270);
+    	g.setFont(new Font("Comic Sans MS", Font.BOLD, 20));
+    	g.drawString("Press space to continue", 290, 310);
+    	System.out.println("Stop");
 	}
 
 	public Canvas getCanvas() {

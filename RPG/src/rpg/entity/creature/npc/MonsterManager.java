@@ -45,7 +45,6 @@ public class MonsterManager {
             monster[i].setCenter_X(center_X);
             monster[i].setCenter_Y(center_Y);
             monster[i].setAnimationImage(randomImage(i % 4));
-            monster[i].setIdItems(ThreadLocalRandom.current().nextInt(1, 700));
 
         }
     }
@@ -55,10 +54,10 @@ public class MonsterManager {
             if (monster[i] != null) {
                 monster[i].update();
                 // monster[i].player_attack(monster[i]);
-                // if (monster[i].getDead()) { // loai bo doi tuong khi chet khoi man hinh
-                // monster[i] = null;
-                // this.countMonster--;
-                // }
+                if (monster[i].getDead()) { // loai bo doi tuong khi chet khoi man hinh
+                    monster[i] = null;
+                    this.countMonster--;
+                }
             }
         }
     }

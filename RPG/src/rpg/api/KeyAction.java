@@ -5,7 +5,7 @@ import java.awt.event.KeyListener;
 
 public class KeyAction implements KeyListener {
     public boolean key[];
-    public boolean up, down, right, left, attack, pick_up;
+    public boolean up, down, right, left, attack, pick_up,space;
 
     public KeyAction() {
         key = new boolean[100];
@@ -18,6 +18,7 @@ public class KeyAction implements KeyListener {
         left = key[KeyEvent.VK_LEFT];
         attack = key[KeyEvent.VK_A];
         pick_up = key[KeyEvent.VK_E];
+        space = key[KeyEvent.VK_SPACE];
     }
 
     @Override

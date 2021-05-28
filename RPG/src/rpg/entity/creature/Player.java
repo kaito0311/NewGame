@@ -12,11 +12,8 @@ public class Player extends Creature {
     private int dem = 0;
     private int previous_state = 0;
     private long lastTimeAttack;
-    private boolean takeItems; 
     private long cooldown = 1000, time = 5000, lasttime = 0;
     private Animation attack_up, attack_down, attack_left, attack_right;
-
-    private long lastTimeTakeItems, timeTakeItems;
 
     public Player(Game game, float x, float y, int width, int height) {
         super(game, x, y, width, height);
@@ -37,9 +34,6 @@ public class Player extends Creature {
         bounds.y = 20;
         bounds.width = 6;
         bounds.height = 8;
-        takeItems = false;
-        timeTakeItems = 100;
-        MAXHP = 300;
     }
 
     // private boolean checkAttack() {
@@ -58,7 +52,7 @@ public class Player extends Creature {
         if (time > cooldown) {
 
             time = 0;
-  
+            // System.out.println(lasttime);
             lasttime = System.currentTimeMillis();
             return true;
         }
@@ -85,13 +79,21 @@ public class Player extends Creature {
         return allowAttack;
     }
 
+    public void die() {
+        if (this.HP <= 0){
+            this.dead = true;
+        }    
+    }
+
     @Override
     public void update() {
-        state_update();
-        loca_update();
-        move();
-        Time_attack();
-        timeTakeItems();
+        if(!this.dead) {
+        	die();
+            state_update();
+            loca_update();
+            move();
+            Time_attack();
+        }
     }
 
     public void state_update() {
@@ -124,33 +126,6 @@ public class Player extends Creature {
         if (game.getKeyaction().attack) {
             allowAttack = true;
         }
-        if(game.getKeyaction().pick_up)
-        {
-            takeItems = true;
- 
-        }
-    }
-
-
-    public void timeTakeItems()
-    {
-        if(takeItems)
-        {
-            if(System.currentTimeMillis()-lastTimeTakeItems > timeTakeItems)
-            {
-                lastTimeTakeItems = System.currentTimeMillis();
-                takeItems= false;
-            }
-        }
-    }
-    public void setTakeItems(boolean takeItems)
-    {
-        this.takeItems = takeItems;
-    }
-
-    public boolean getTakeItems()
-    {
-        return this.takeItems;
     }
 
     public void drawLeft(Graphics g) {

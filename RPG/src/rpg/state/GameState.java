@@ -24,36 +24,39 @@ public class GameState {
     }
 
     public void update() {
-        player.update();
-        if (this.game.getCurrentMap().getId() == 0) {
-            monsters0.update();
-            boss0.update();
-        } else if (this.game.getCurrentMap().getId() == 1) {
-            monsters1.update(); boss0.update();
-            // boss1.update();
-        } else if (this.game.getCurrentMap().getId() == 2) {
-            monsters2.update(); boss0.update();
-            // boss2.update();
+        if(!player.getDead()) {
+        	player.update();
+        	if (this.game.getCurrentMap().getId() == 0) {
+                monsters0.update();
+                boss0.update();
+            } else if (this.game.getCurrentMap().getId() == 1) {
+                monsters1.update(); boss0.update();
+                // boss1.update();
+            } else if (this.game.getCurrentMap().getId() == 2) {
+                monsters2.update(); boss0.update();
+                // boss2.update();
+            }
         }
-
     }
 
     public void render(Graphics g) {
-        player.render(g);
-        if (game.getCurrentMap().getId() == 0) {
-            monsters0.render(g);
-            boss0.render(g);
-        } else if (game.getCurrentMap().getId() == 1) {
-            monsters1.render(g);
-            boss0.render(g);
-            // boss1.render(g);
-        } else if (game.getCurrentMap().getId() == 2) {
-            monsters2.render(g);
-            boss0.render(g);
-            // boss2.render(g);
+        if(!player.getDead()) {
+        	player.render(g);
+        	if (game.getCurrentMap().getId() == 0) {
+                monsters0.render(g);
+                boss0.render(g);
+            } else if (game.getCurrentMap().getId() == 1) {
+                monsters1.render(g);
+                boss0.render(g);
+                // boss1.render(g);
+            } else if (game.getCurrentMap().getId() == 2) {
+                monsters2.render(g);
+                boss0.render(g);
+                // boss2.render(g);
+            }
         }
     }
-    
+
     public Player getPlayer() {
         return this.player;
     }

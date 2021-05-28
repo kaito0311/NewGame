@@ -40,9 +40,6 @@ public class Texture {
 
     // end
 
-    public static BufferedImage items; 
-    public static BufferedImage[] bottleHP;
-
     public static void loadImage() {
         try {
             grass = ImageIO.read(new File("src/assets/grass.png"));
@@ -58,7 +55,6 @@ public class Texture {
             fire_blue = ImageIO.read(new File("src/assets/fire_blue.png"));
             monsterMove = ImageIO.read(new File("src/assets/boss01.png"));
             smallBoss = ImageIO.read(new File("src/assets/dead_characters.png"));
-            items = ImageIO.read(new File("src/assets/items.png"));
             // End
         } catch (IOException e) {
             e.printStackTrace();
@@ -309,13 +305,6 @@ public class Texture {
         bat[0] = smallBoss.getSubimage(32, 32, 16, 16);
 
         // End
-        bottleHP = new BufferedImage[3];
-        bottleHP[0] = items.getSubimage(176, 64, 16, 16);
-        bottleHP[1] = items.getSubimage(80, 144, 16, 16);
-        bottleHP[2] = items.getSubimage(192, 112, 16, 16);
-
-
-        
     }
 
     private static void loadHouse() {

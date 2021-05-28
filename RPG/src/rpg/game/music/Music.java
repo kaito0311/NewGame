@@ -13,7 +13,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 
 public class Music extends Thread {
 	private Thread thread;
-	private boolean running = false;
+	private static boolean running = false;
 	private String filename;
 
 	private Position curPosition;
@@ -23,6 +23,10 @@ public class Music extends Thread {
 	enum Position {
 		LEFT, RIGHT, NORMAL
 	};
+	
+	public void setRunning(boolean tmp) {
+		Music.running = false;
+	}
 
 	public Music(String wavfile) {
 		filename = wavfile;
@@ -45,7 +49,7 @@ public class Music extends Thread {
 
 	public void run() {
 
-		while (true) {
+		while (running) {
 			File soundFile = new File(filename);
 			if (!soundFile.exists()) {
 				System.err.println("Khong tim thay " + filename);

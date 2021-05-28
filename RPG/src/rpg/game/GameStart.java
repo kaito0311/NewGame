@@ -25,48 +25,31 @@ public class GameStart extends JFrame implements ActionListener {
     private JPanel panel;
     private JButton newGame;
     private JButton setting;
+    private JButton question_mark;
     private JButton aboutUs;
     public String game_mode;
 
     public GameStart() {
 
         startGameBackground = new ImageIcon("src/Assets/start_game.png");
-        if (startGameBackground == null) {
-            System.out.println("hmmm, loi background");
-        }
-        try {
-            setSize(851, 470);
-            setVisible(true);
-            setResizable(false);
-            setLocationRelativeTo(null);
-            setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            // System.out.println("hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh");
-            // panel = new JPanel();
-            try {
-                panel = new JPanel() {
+        setSize(851, 470);
+        setVisible(true);
+        setResizable(false);
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-                    protected void paintComponent(Graphics g) {
-                        System.out.println("hmmm, background");
-
-                        super.paintComponent(g);
-                        if (startGameBackground != null) {
-                            g.drawImage(startGameBackground.getImage(), 0, 0, getWidth(), getHeight(), null);
-                        }
-                    }
-                };
-            } catch (Exception e) {
-                System.out.println("GameLoi");
+        panel = new JPanel() {
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                if (startGameBackground != null) {
+                    g.drawImage(startGameBackground.getImage(), 0, 0, getWidth(), getHeight(), null);
+                }
             }
-            setContentPane(panel);
+        };
+        setContentPane(panel);
 
-            this.setLayout(null);
-            setControl();
-
-        } catch (Exception e) {
-            System.out.println("choi tam");
-            Game game = new Game("Game", (int) MAX_WIDTH, (int) MAX_HEIGHT);
-            game.start();
-        }
+        this.setLayout(null);
+        setControl();
     }
 
     public void setControl() {
@@ -82,6 +65,14 @@ public class GameStart extends JFrame implements ActionListener {
         setting.setLocation(350, 350);
         setting.addActionListener(this);
         add(setting);
+        
+        Font font = new Font("Comic Sans MS", Font.BOLD, 20);
+        question_mark = new JButton("?");
+        question_mark.setFont(font);
+        question_mark.setSize(45,40);
+        question_mark.setLocation(795, 50);
+        question_mark.addActionListener(this);
+        add(question_mark);
 
         aboutUs = new JButton("About Us");
         add(aboutUs);
@@ -109,6 +100,11 @@ public class GameStart extends JFrame implements ActionListener {
                     "Nhom xx: " + "\n- Dinh Tan Minh" + "\n- Tran Doan Hiep" + "\n- Nguyen Van Linh"
                             + "\n- Duong Van Tuyen" + "\n- Dao Minh Tien" + "\n GVHD:",
                     "Information of us", JOptionPane.INFORMATION_MESSAGE);
+        }
+        if(btn == question_mark) {
+        	JOptionPane.showMessageDialog(null,
+                    "+ Nhấn các phím mũi tên để di chuyển.\n+ Nhấn A để đánh quái",
+                    "Tutorial", JOptionPane.PLAIN_MESSAGE);
         }
     }
 
