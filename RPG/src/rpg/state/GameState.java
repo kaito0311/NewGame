@@ -10,6 +10,7 @@ public class GameState {
     private Game game;
     private Player player;
     private Boss boss1, boss2, boss0; //
+    private Boss[] boss = new Boss[3];
     private MonsterManager monsters1, monsters2, monsters0;
 
     public GameState(Game game) {
@@ -20,40 +21,48 @@ public class GameState {
         monsters2 = new MonsterManager(game, player, 18);
         // khai bao 3 con boss
         // }
-        boss0 = new Boss(game, player, 400,400,105,90);
+        //Linh...
+        boss0 = new Boss(game, 400,400,105,90, player, 0);
+        boss1 = new Boss(game, 400,400,105,90, player, 1);
+        boss2 = new Boss(game, 400,400,105,90, player, 2);
+ 
+        for(int i = 0; i < 3; ++i)
+        {
+        	boss[i] = new Boss(game, 400,400,105,90, player, i);
+        }
+        //...
     }
 
+    //Linh...
     public void update() {
+    	int i = this.game.getCurrentMap().getId();
         player.update();
-        if (this.game.getCurrentMap().getId() == 0) {
+
+        if (i == 0) {
             monsters0.update();
-            boss0.update();
-        } else if (this.game.getCurrentMap().getId() == 1) {
-            monsters1.update(); boss0.update();
-            // boss1.update();
-        } else if (this.game.getCurrentMap().getId() == 2) {
-            monsters2.update(); boss0.update();
-            // boss2.update();
+        } else if (i == 1) {
+            monsters1.update(); 
+        } else if (i == 2) {
+            monsters2.update(); 
         }
+        boss[i].update();
 
     }
 
     public void render(Graphics g) {
+    	int i = this.game.getCurrentMap().getId();
         player.render(g);
-        if (game.getCurrentMap().getId() == 0) {
+        if (i == 0) {
             monsters0.render(g);
-            boss0.render(g);
-        } else if (game.getCurrentMap().getId() == 1) {
+        } else if (i == 1) {
             monsters1.render(g);
-            boss0.render(g);
-            // boss1.render(g);
-        } else if (game.getCurrentMap().getId() == 2) {
+        } else if (i == 2) {
             monsters2.render(g);
-            boss0.render(g);
-            // boss2.render(g);
         }
+        boss[i].render(g);
     }
-
+    //...
+    
     public Player getPlayer() {
         return this.player;
     }

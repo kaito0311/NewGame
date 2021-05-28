@@ -4,12 +4,13 @@ import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.imageio.ImageIO;
 
 public class Texture {
-    public static BufferedImage grass, land, grass_tiny, overworld, water, player, boss, house;// sua
+    public static BufferedImage grass, land, grass_tiny, overworld, water, player, house;// sua
     public static HashMap<String, Image> tiles = new HashMap<>();
 
     public static BufferedImage[] player_down; // luu anh di xuong
@@ -29,10 +30,13 @@ public class Texture {
     public static BufferedImage smallBoss;
     public static BufferedImage[] slime, spider, skeleton, bat;
 
-    public static BufferedImage[] boss_up;
-    public static BufferedImage[] boss_down;
-    public static BufferedImage[] boss_left;
-    public static BufferedImage[] boss_right;
+    //Linh
+    public static BufferedImage[] boss = new BufferedImage[3];
+    public static BufferedImage[][] boss_up = new BufferedImage[3][3];
+    public static BufferedImage[][] boss_down = new BufferedImage[3][3]; 
+    public static BufferedImage[][] boss_left = new BufferedImage[3][3]; 
+    public static BufferedImage[][] boss_right = new BufferedImage[3][3]; 
+    //
 
     public static BufferedImage[] bom_bum;
     public static BufferedImage[] fire_attack;
@@ -50,7 +54,11 @@ public class Texture {
             water = ImageIO.read(new File("src/assets/water.png"));
             // Minh sua
             player = ImageIO.read(new File("src/assets/character.png"));
-            boss = ImageIO.read(new File("src/assets/flying.png"));
+            //Linh
+            boss[0] = ImageIO.read(new File("src/assets/Flying1.png"));
+            boss[1] = ImageIO.read(new File("src/assets/flying0.png"));
+            boss[2] = ImageIO.read(new File("src/assets/flying3.png"));
+            //
             bom = ImageIO.read(new File("src/assets/Fire02.png"));
             fire_blue = ImageIO.read(new File("src/assets/fire_blue.png"));
             monsterMove = ImageIO.read(new File("src/assets/boss01.png"));
@@ -211,27 +219,28 @@ public class Texture {
         attack_left[2] = player.getSubimage(67, 230, 18, 23);
         attack_left[3] = player.getSubimage(100, 230, 20, 23);
 
-        // load boss image
-        boss_up = new BufferedImage[3];
-        boss_down = new BufferedImage[3];
-        boss_right = new BufferedImage[3];
-        boss_left = new BufferedImage[3];
+        //linh
+        int i;
+        for(i = 0; i < 3; ++i) {
+	        boss_up[i][0] = boss[i].getSubimage(0, 0, 136, 122);
+	        boss_up[i][1] = boss[i].getSubimage(145, 0, 136, 122);
+	        boss_up[i][2] = boss[i].getSubimage(291, 0, 136, 122);
+	
+	        boss_down[i][0] = boss[i].getSubimage(0, 266, 136, 122);
+	        boss_down[i][1] = boss[i].getSubimage(145, 266, 136, 122);
+	        boss_down[i][2] = boss[i].getSubimage(291, 266, 136, 122);
+	
+	        boss_right[i][0] = boss[i].getSubimage(0, 122, 136, 122);
+	        boss_right[i][1] = boss[i].getSubimage(145, 122, 136, 122);
+	        boss_right[i][2] = boss[i].getSubimage(291, 122, 136, 122);
+	
+	        boss_left[i][0] = boss[i].getSubimage(0, 389, 136, 122);
+	        boss_left[i][1] = boss[i].getSubimage(145, 389, 136, 122);
+	        boss_left[i][2] = boss[i].getSubimage(291, 389, 136, 122);
+        
+        }
+        //
 
-        boss_up[0] = boss.getSubimage(0, 0, 70, 60);
-        boss_up[1] = boss.getSubimage(75, 0, 70, 60);
-        boss_up[2] = boss.getSubimage(150, 0, 70, 60);
-
-        boss_down[0] = boss.getSubimage(0, 130, 70, 60);
-        boss_down[1] = boss.getSubimage(75, 130, 70, 60);
-        boss_down[2] = boss.getSubimage(150, 130, 70, 60);
-
-        boss_right[0] = boss.getSubimage(0, 60, 70, 60);
-        boss_right[1] = boss.getSubimage(75, 60, 70, 60);
-        boss_right[2] = boss.getSubimage(150, 60, 70, 60);
-
-        boss_left[0] = boss.getSubimage(0, 190, 70, 60);
-        boss_left[1] = boss.getSubimage(75, 190, 70, 60);
-        boss_left[2] = boss.getSubimage(150, 190, 70, 60);
 
         bom_bum = new BufferedImage[25];
 

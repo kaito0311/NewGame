@@ -1,3 +1,4 @@
+
 package rpg.game;
 
 public class Launcher {

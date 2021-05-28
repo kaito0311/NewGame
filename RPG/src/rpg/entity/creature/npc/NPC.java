@@ -19,12 +19,10 @@ public abstract class NPC extends Creature {
 		this.player = player;
 		allowAttack = false;
 		time_move = 0;
-	
+		dead = false;
 		center_X = 200f;
 		center_Y = 200f;
 		R = 200;
-		
-
 
 	}
 
@@ -36,7 +34,7 @@ public abstract class NPC extends Creature {
 			return true;
 	}
 
-	public void moveX() {
+	protected void setMoveX() {
 		deltaX = 0;
 		deltaY = 0;
 		// if(this.x > 0 && this.x < GameStart.MAX_WIDTH-32) {
@@ -53,24 +51,8 @@ public abstract class NPC extends Creature {
 		}
 
 	}
-	public void move()
-	{
-		if(System.currentTimeMillis() - time_move > 3000 || !outOfRange(x, y))
-		{ 
-			time_move = System.currentTimeMillis();
-				// rand = Math.random();
-				if (ThreadLocalRandom.current().nextInt(1, 100) < 50) {
-					moveX();
-				} else {
-					moveY();
-				}
-		}
-		x+= deltaX;
-		y+= deltaY;
 
-	}
-
-	public void moveY() {
+	protected void setMoveY() {
 		deltaX = 0;
 		deltaY = 0;
 
@@ -126,9 +108,18 @@ public abstract class NPC extends Creature {
 		this.time_move = time_move;
 	}
 
-	public abstract void attackOther();
-	public abstract void playerAttack();
-	
-	// public abstract void update_move();
+	public abstract void update_move();
+
+	@Override
+	public void update() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void render(Graphics g) {
+		// TODO Auto-generated method stub
+
+	}
 
 }

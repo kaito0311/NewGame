@@ -36,23 +36,23 @@ public class Player extends Creature {
         bounds.height = 8;
     }
 
-    // private boolean checkAttack() {
-    //     time += System.currentTimeMillis() - lasttime;
+    private boolean checkAttack() {
+        time += System.currentTimeMillis() - lasttime;
 
-    //     if (allowAttack && (time >= cooldown)) {
-    //         time = 0;
-    //         lasttime = System.currentTimeMillis();
-    //         return true;
-    //     }
-    //     return false;
-    // }
+        if (allowAttack && (time >= cooldown)) {
+            time = 0;
+            lasttime = System.currentTimeMillis();
+            return true;
+        }
+        return false;
+    }
 
     private boolean checkTime() {
         time = System.currentTimeMillis() - lasttime;
         if (time > cooldown) {
 
             time = 0;
-            // System.out.println(lasttime);
+            System.out.println(lasttime);
             lasttime = System.currentTimeMillis();
             return true;
         }
@@ -67,7 +67,7 @@ public class Player extends Creature {
         if (dem < Texture.getLengthBufferedImage(Texture.attack_right) * 5)
             return;
 
-        // System.out.println("hetime");
+        System.out.println("hetime");
         if (checkTime()) {
             allowAttack = true;
             dem = 0;
@@ -81,22 +81,16 @@ public class Player extends Creature {
 
     @Override
     public void update() {
-        state_update();
+        move_update();
         loca_update();
         move();
-        Time_attack();
     }
 
-    public void state_update() {
+    private void move_update() {
         move_up.update();
         move_down.update();
         move_left.update();
         move_right.update();
-        attack_up.update();
-		attack_down.update();
-		attack_right.update();
-		attack_left.update();
-        
     }
 
     private void loca_update() { // update vi tri
