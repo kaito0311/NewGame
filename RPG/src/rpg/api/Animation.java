@@ -1,6 +1,5 @@
 package rpg.api;
 
-import java.awt.Image;
 import java.awt.image.BufferedImage;
 
 public class Animation {
@@ -39,17 +38,8 @@ public class Animation {
         this.index = index;
     }
 
-    public Image getCurrentImage(BufferedImage[] Images) {
+    public BufferedImage getCurrentImage(BufferedImage[] Images) {
         return Images[index];
     }
-
-
-
-//	public BufferedImage getCurrentImage(BufferedImage[] images2) {
-//		// TODO Auto-generated method stub
-//		return Images[index];
-//	}
-
-
 
 }

@@ -1,11 +1,14 @@
 package rpg.entity.creature;
-
+//////////////////////////////////
+// Minh sua , luot xuong cuoi 
+//////////////////////////////////
 import java.awt.Rectangle;
 
 import rpg.game.Game;
 import rpg.game.GameStart;
 import rpg.api.Animation;
 import rpg.entity.Entity;
+import rpg.entity.creature.npc.Attack;
 
 public abstract class Creature extends Entity {
     protected int MAXHP;
@@ -15,6 +18,7 @@ public abstract class Creature extends Entity {
     protected float deltaX, deltaY;
     protected Rectangle bounds;
     protected boolean allowAttack, dead;
+    protected Attack attackOther;
     // protected Attack attack;
     protected Animation move_up, move_down, move_left, move_right;
 
@@ -22,7 +26,9 @@ public abstract class Creature extends Entity {
         super(game, x, y, width, height);
         this.deltaX = 0;
         this.deltaY = 0;
+        dead = false;
         bounds = new Rectangle(0, 0, width, height);
+        attackOther = new Attack();
     }
 
     public void init() {
@@ -46,25 +52,28 @@ public abstract class Creature extends Entity {
                 bounds.height + range * 2);
     }
 
-    public void moveX() {
+
+    public void move() {
         if (x + width + deltaX >= GameStart.MAX_WIDTH || x + deltaX <= 0)
             return;
         if (y + deltaY <= 0 || y + height + deltaY >= GameStart.MAX_HEIGHT)
             return;
 
+        int tx, ty, tyY;
+        //moveX
         if (deltaX > 0) {
-            int tx = (int) (x + deltaX + bounds.x + bounds.width) / 32;
-            int ty = (int) (y + bounds.y) / 32;
-            int tyY = (int) (y + bounds.y + bounds.height) / 32;
+            tx = (int) (x + deltaX + bounds.x + bounds.width) / 32;
+            ty = (int) (y + bounds.y) / 32;
+            tyY = (int) (y + bounds.y + bounds.height) / 32;
             if (!collisionWithTile(tx, ty) && !collisionWithTile(tx, tyY)) {
                 x += deltaX;
             } else {
                 x = tx * 32 + -bounds.width - 1 - bounds.x;
             }
         } else if (deltaX < 0) {
-            int tx = (int) (x + deltaX + bounds.x) / 32;
-            int ty = (int) (y + bounds.y) / 32;
-            int tyY = (int) (y + bounds.y + bounds.height) / 32;
+            tx = (int) (x + deltaX + bounds.x) / 32;
+            ty = (int) (y + bounds.y) / 32;
+            tyY = (int) (y + bounds.y + bounds.height) / 32;
             if (!collisionWithTile(tx, ty) && !collisionWithTile(tx, tyY)) {
                 x += deltaX;
             } else {
@@ -72,17 +81,9 @@ public abstract class Creature extends Entity {
             }
         }
 
-    }
-
-    //
-    public void moveY() {
-        if (x + width + deltaX >= GameStart.MAX_WIDTH || x + deltaX <= 0)
-            return;
-        if (y + deltaY <= 0 || y + height + deltaY >= GameStart.MAX_HEIGHT)
-            return;
-
+        //moveY
         if (deltaY < 0) {
-            int ty = (int) ((y + deltaY + bounds.y) / 32);
+            ty = (int) ((y + deltaY + bounds.y) / 32);
             if (!collisionWithTile((int) (x + bounds.x) / 32, ty)
                     && !collisionWithTile((int) (x + bounds.x + bounds.width) / 32, ty)) {
                 y += deltaY;
@@ -90,7 +91,7 @@ public abstract class Creature extends Entity {
                 y = ty * 32 + 32 - bounds.y;
             }
         } else if (deltaY > 0) {
-            int ty = (int) (y + deltaY + bounds.y + bounds.height) / 32;
+                ty = (int) (y + deltaY + bounds.y + bounds.height) / 32;
 
             if (!collisionWithTile((int) (x + bounds.x) / 32, ty)
                     && !collisionWithTile((int) (x + bounds.x + bounds.width) / 32, ty)) {
@@ -99,11 +100,6 @@ public abstract class Creature extends Entity {
                 y = ty * 32 - bounds.y - bounds.height - 1;
             }
         }
-    }
-
-    public void move() {
-        moveX();
-        moveY();
     }
 
     public void die() {
@@ -129,4 +125,11 @@ public abstract class Creature extends Entity {
         else
             return false;
     }
+    /////////////////////////Minh sua /////////////////////////
+    public void setRectForAttack(int range)
+    {
+        rectForAttack.setBounds((int) (x + bounds.x - range), (int) (y + bounds.y - range), bounds.width + range * 2,
+		bounds.height + range * 2);
+    }
+
 }

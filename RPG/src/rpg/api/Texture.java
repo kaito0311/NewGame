@@ -4,7 +4,6 @@ import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.imageio.ImageIO;
@@ -30,13 +29,14 @@ public class Texture {
     public static BufferedImage smallBoss;
     public static BufferedImage[] slime, spider, skeleton, bat;
 
-    //Linh
-    public static BufferedImage[] boss = new BufferedImage[3];
-    public static BufferedImage[][] boss_up = new BufferedImage[3][3];
-    public static BufferedImage[][] boss_down = new BufferedImage[3][3]; 
-    public static BufferedImage[][] boss_left = new BufferedImage[3][3]; 
-    public static BufferedImage[][] boss_right = new BufferedImage[3][3]; 
-    //
+     //Linh
+     public static BufferedImage[] boss = new BufferedImage[3];
+     public static BufferedImage[][] boss_up = new BufferedImage[3][3];
+     public static BufferedImage[][] boss_down = new BufferedImage[3][3]; 
+     public static BufferedImage[][] boss_left = new BufferedImage[3][3]; 
+     public static BufferedImage[][] boss_right = new BufferedImage[3][3]; 
+     //
+ 
 
     public static BufferedImage[] bom_bum;
     public static BufferedImage[] fire_attack;
@@ -240,7 +240,6 @@ public class Texture {
         
         }
         //
-
 
         bom_bum = new BufferedImage[25];
 
