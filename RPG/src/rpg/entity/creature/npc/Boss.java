@@ -6,7 +6,6 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import rpg.api.Animation;
 import rpg.api.Texture;
-import rpg.entity.Fire;
 import rpg.entity.creature.Player;
 import rpg.game.Game;
 import java.awt.*;
@@ -19,10 +18,10 @@ public class Boss extends NPC {
 
 	public Boss(Game game, Player player, float x, float y, int width, int height) {
 		super(game, player, x, y, width, height);
-		move_up = new Animation(Texture.boss_up, 200);
-		move_down = new Animation(Texture.boss_down, 200);
-		move_left = new Animation(Texture.boss_left, 200);
-		move_right = new Animation(Texture.boss_right, 200);
+		move_up = new Animation(Texture.boss_up, 100);
+		move_down = new Animation(Texture.boss_down, 100);
+		move_left = new Animation(Texture.boss_left, 100);
+		move_right = new Animation(Texture.boss_right, 100);
 
 		center_X = 600;
 		center_Y = 400;
@@ -153,6 +152,10 @@ public class Boss extends NPC {
 
 		attackOther();
 	}
+
+
+
+
 	//------------------------------------------------------
 
 	@Override

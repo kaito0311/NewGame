@@ -53,7 +53,7 @@ public class GameState {
             // boss2.render(g);
         }
     }
-
+    
     public Player getPlayer() {
         return this.player;
     }

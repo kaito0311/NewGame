@@ -36,7 +36,7 @@ public class Setting extends JFrame implements ActionListener {
 	private final int PAD = 5;
 	private final int WEST_PAD = 290;
 	private final int NORTH_PAD = 310;
-	public static boolean musicable = true;
+	public static boolean musicable = false;
 	public static int level = 0;
 
 	public Setting() {

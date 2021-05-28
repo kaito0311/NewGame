@@ -6,7 +6,7 @@ import java.awt.Rectangle;
 
 import rpg.game.Game;
 import rpg.game.GameStart;
-import rpg.Attack;
+import rpg.interact.Attack;
 import rpg.api.Animation;
 import rpg.entity.Entity;
 
@@ -29,6 +29,22 @@ public abstract class Creature extends Entity {
         dead = false;
         bounds = new Rectangle(0, 0, width, height);
         attackOther = new Attack();
+    }
+
+    public int getDamage() {
+        return damage;
+    }
+
+    public void setDamage(int damage) {
+        this.damage = damage;
+    }
+
+    public int getArmor() {
+        return armor;
+    }
+
+    public void setArmor(int armor) {
+        this.armor = armor;
     }
 
     public void init() {
@@ -117,10 +133,23 @@ public abstract class Creature extends Entity {
             this.dead = true;
     }
 
-    public void hurt(int damage) {
-        this.HP = this.HP - (damage - this.armor);
+    public void setHP(int deltaHP)
+    {
+        this.HP += deltaHP; 
+        if(HP >=MAXHP) HP = MAXHP;
+        // if(HP <= 0) HP = 0;
     }
 
+
+    public void hurt(int damage) {
+        this.HP = this.HP - (damage - this.armor);
+        if(HP <0) HP = 0;
+    }
+
+    public int getHP()
+    {
+        return HP;
+    }
     public int getMAXHP() {
         return MAXHP;
     }

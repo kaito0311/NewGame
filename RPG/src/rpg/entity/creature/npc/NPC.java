@@ -1,6 +1,6 @@
 package rpg.entity.creature.npc;
 
-import java.awt.Graphics;
+// import java.awt.Graphics;
 import java.util.concurrent.ThreadLocalRandom;
 
 import rpg.entity.creature.Creature;

@@ -6,12 +6,16 @@ import java.awt.Graphics;
 import java.awt.Color;
 import rpg.api.Animation;
 import rpg.entity.creature.Player;
+import rpg.entity.items.BuffHP;
+import rpg.entity.items.ManageItems;
 import rpg.game.Game;
 
 public class Monster extends NPC {
 
     private Animation monsterMove;
     private BufferedImage[] Image;
+    private int idItems;
+    private ManageItems manageItems;
 
     public Monster(Game game, Player player, float x, float y, int width, int height) {
         super(game, player, x, y, width, height);
@@ -20,6 +24,8 @@ public class Monster extends NPC {
         this.armor = 1;
         this.R = 50.0;
         time_move = 0;
+        manageItems = new ManageItems(game);
+        idItems = 0;
 
     }
 
@@ -41,22 +47,41 @@ public class Monster extends NPC {
         return Image;
     }
 
+    public void setIdItems(int id)
+    {
+       this.idItems = id % manageItems.getSizeListItems();
+    }
+
     public void update() {
         die();
-        monsterMove.update();
-        move();
-        attackOther();
-        playerAttack();
+        if (dead) {
 
+            if (manageItems.getItem(idItems).getIsAppear() == 0) {
+                manageItems.getItem(idItems).setRectForAttack((int) x, (int) y, 32, 32);
+                manageItems.getItem(idItems).setIsAppear(1);
+                manageItems.getItem(idItems).setRectForAttack((int) x, (int) y, 32, 32);
+            }
+            playerTakeItems();
+
+        } else {
+            monsterMove.update();
+            move();
+            playerAttack();
+            attackOther();
+        }
     }
 
     public void render(Graphics g) {
+        if (dead) {
+            if (manageItems.getItem(idItems).getIsAppear() == 1)
+                manageItems.getItem(idItems).render(g);
+            // System.out.println("hmmm");
+            return;
+        }
         g.setColor(Color.gray);
         g.fillRect((int) x + 10, (int) y - 4, 20, 4); //
         g.setColor(Color.red);
         g.fillRect((int) x + 10, (int) y - 4, HP / 4, 4);
-        // g.setColor(Color.green);
-        // g.fillRect((int) x, (int) y, bounds.width, bounds.height);
         g.drawImage(getAnimationImage().getCurrentImage(getImage()), (int) x, (int) y, 32, 32, null);
     }
 
@@ -64,16 +89,28 @@ public class Monster extends NPC {
     public void attackOther() {
         player.setRectForAttack(0);
         this.setRectForAttack(0);
-        attackOther.attack(player, this, 10);  
+        if (!dead)
+            attackOther.attack(player, this, 10);
+
     }
 
     @Override
     public void playerAttack() {
         player.setRectForAttack(10);
-        this.setRectForAttack(0);
-        if(player.isAttack())
-        attackOther.attack(this, player, 10);
-        
+        this.setRectForAttack((int) x, (int) y, width, height);
+        if (player.isAttack())
+            if (!dead)
+                attackOther.attack(this, player,player.getDamage());
+
+    }
+
+    public void playerTakeItems() {
+        if (player.getTakeItems() && manageItems.getItem(idItems).getIsAppear() == 1) {
+            player.setRectForAttack(10);
+            if (manageItems.getItem(idItems).takeItem(player)) {
+                player.setTakeItems(false);
+            }
+        }
     }
 
     // @Override

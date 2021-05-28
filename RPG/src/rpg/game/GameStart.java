@@ -31,25 +31,42 @@ public class GameStart extends JFrame implements ActionListener {
     public GameStart() {
 
         startGameBackground = new ImageIcon("src/Assets/start_game.png");
-        setSize(851, 470);
-        setVisible(true);
-        setResizable(false);
-        setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        if (startGameBackground == null) {
+            System.out.println("hmmm, loi background");
+        }
+        try {
+            setSize(851, 470);
+            setVisible(true);
+            setResizable(false);
+            setLocationRelativeTo(null);
+            setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            // System.out.println("hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh");
+            // panel = new JPanel();
+            try {
+                panel = new JPanel() {
 
-        panel = new JPanel() {
+                    protected void paintComponent(Graphics g) {
+                        System.out.println("hmmm, background");
 
-            protected void paintComponent(Graphics g) {
-                super.paintComponent(g);
-                if (startGameBackground != null) {
-                    g.drawImage(startGameBackground.getImage(), 0, 0, getWidth(), getHeight(), null);
-                }
+                        super.paintComponent(g);
+                        if (startGameBackground != null) {
+                            g.drawImage(startGameBackground.getImage(), 0, 0, getWidth(), getHeight(), null);
+                        }
+                    }
+                };
+            } catch (Exception e) {
+                System.out.println("GameLoi");
             }
-        };
-        setContentPane(panel);
+            setContentPane(panel);
 
-        this.setLayout(null);
-        setControl();
+            this.setLayout(null);
+            setControl();
+
+        } catch (Exception e) {
+            System.out.println("choi tam");
+            Game game = new Game("Game", (int) MAX_WIDTH, (int) MAX_HEIGHT);
+            game.start();
+        }
     }
 
     public void setControl() {
