@@ -6,9 +6,9 @@ import java.awt.Rectangle;
 
 import rpg.game.Game;
 import rpg.game.GameStart;
+import rpg.Attack;
 import rpg.api.Animation;
 import rpg.entity.Entity;
-import rpg.entity.creature.npc.Attack;
 
 public abstract class Creature extends Entity {
     protected int MAXHP;

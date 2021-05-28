@@ -6,6 +6,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import rpg.api.Animation;
 import rpg.api.Texture;
+import rpg.entity.Fire;
 import rpg.entity.creature.Player;
 import rpg.game.Game;
 import java.awt.*;
@@ -152,10 +153,6 @@ public class Boss extends NPC {
 
 		attackOther();
 	}
-
-
-
-
 	//------------------------------------------------------
 
 	@Override

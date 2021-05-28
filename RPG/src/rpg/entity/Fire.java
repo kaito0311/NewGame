@@ -1,10 +1,9 @@
-package rpg.entity.creature.npc;
+package rpg.entity;
 
 import java.awt.Graphics;
 
 import rpg.api.Animation;
 import rpg.api.Texture;
-import rpg.entity.Entity;
 import rpg.game.Game;
 
 public class Fire extends Entity {
